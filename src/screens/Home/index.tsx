@@ -11,6 +11,9 @@ import { Header } from '../../components/Header';
 
 // * StyleSheet Imports
 import { styles } from './styles';
+import { DuoMatch } from '../../components/DuoMatch';
+import { DuoCard } from '../../components/DuoCard';
+import { Background } from '../../components/Background';
 
 // The App itself
 export function Home() {
@@ -29,29 +32,32 @@ export function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image source={logo} style={styles.logo} />
+    <Background>
+      <SafeAreaView style={styles.container}>
+        <Image source={logo} style={styles.logo} />
 
-      <Header
-        title="Encontre o seu DUO aqui!"
-        subtitle="Selecione o jogo que quer JOGAR."
-      />
+        <Header
+          title="Encontre o seu DUO aqui!"
+          subtitle="Selecione o jogo que quer JOGAR."
+        />
 
-      <FlatList
-        data={games}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <GameCard
-            data={item}
-            onPress={() => {
-              handleOpenGaming(item);
-            }}
-          />
-        )}
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        contentContainerStyle={styles.contentList}
-      />
-    </SafeAreaView>
+        <FlatList
+          data={games}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <GameCard
+              data={item}
+              onPress={() => {
+                handleOpenGaming(item);
+              }}
+            />
+          )}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          contentContainerStyle={styles.contentList}
+        />
+      </SafeAreaView>
+    </Background>
   );
+  
 }

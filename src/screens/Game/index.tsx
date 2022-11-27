@@ -17,7 +17,6 @@ import { THEME } from '../../theme';
 import { styles } from './styles';
 import { DuoMatch } from '../../components/DuoMatch';
 
-
 // * The App itself
 export function Game() {
   const navigation = useNavigation();
@@ -93,10 +92,10 @@ export function Game() {
         ></FlatList>
 
         <DuoMatch
-          visible={true}
-          discord={discordUserName} 
-          onClose={()=> setIsDiscordModalOpen(false)} />
-        
+          visible={isDiscordModalOpen}
+          discord={discordUserName}
+          onClose={() => setIsDiscordModalOpen(false)}
+        />
       </SafeAreaView>
     </Background>
   );

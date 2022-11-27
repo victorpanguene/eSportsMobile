@@ -11,9 +11,10 @@ import {
 import { Home } from './src/screens/Home';
 import { Loading } from './src/components/Loading';
 import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
 
 export default function App() {
-  const fontsLoaded = useFonts({
+  const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_600SemiBold,
     Inter_700Bold,
@@ -21,11 +22,11 @@ export default function App() {
   });
 
   return (
-    <NavigationContainer>
+    
       <Background>
         <StatusBar barStyle="light-content" backgroundColor="transparent" />
-        {fontsLoaded ? <Home /> : <Loading />}
+        {fontsLoaded ? <Routes /> : <Loading />}
       </Background>
-    </NavigationContainer>
+
   );
 }
