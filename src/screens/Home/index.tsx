@@ -1,33 +1,57 @@
-import React, { useEffect } from 'react';
+// * React Imports
 import { View, Image, FlatList } from 'react-native';
-import logo from '../../assets/logo-nlw-esports.png';
-import { GameCard } from '../../components/GameCard';
-import { Header } from '../../components/Header';
-import { GAMES } from '../../utils/games';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+// * Dev Imports
+import logo from '../../assets/logo-nlw-esports.png';
+import { GameCard, GameProps } from '../../components/GameCard';
+import { Header } from '../../components/Header';
+
+// * StyleSheet Imports
 import { styles } from './styles';
 
+// The App itself
 export function Home() {
+  const navigation = useNavigation();
+
+  const [games, setGames] = useState<GameProps[]>();
+
+  function handleOpenGaming({ id, titles, bannerUrl }: GameProps) {
+    navigation.navigate('game', { id, titles, bannerUrl });
+  }
 
   useEffect(() => {
-    fetch('http://127.0.0.1');
-  }, [])
+    fetch('http://127.0.0.1:3000/games')
+      .then((response) => response.json())
+      .then((data) => setGames(data));
+  }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={logo} style={styles.logo} />
+
       <Header
         title="Encontre o seu DUO aqui!"
         subtitle="Selecione o jogo que quer JOGAR."
       />
 
       <FlatList
-        data={GAMES}
+        data={games}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <GameCard data={item} />}
+        renderItem={({ item }) => (
+          <GameCard
+            data={item}
+            onPress={() => {
+              handleOpenGaming(item);
+            }}
+          />
+        )}
+        showsHorizontalScrollIndicator={false}
         horizontal
         contentContainerStyle={styles.contentList}
       />
-    </View>
+    </SafeAreaView>
   );
 }

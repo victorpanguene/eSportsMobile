@@ -7,8 +7,10 @@ import {
   Inter_700Bold,
   Inter_900Black,
 } from '@expo-google-fonts/inter';
+
 import { Home } from './src/screens/Home';
 import { Loading } from './src/components/Loading';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const fontsLoaded = useFonts({
@@ -17,10 +19,13 @@ export default function App() {
     Inter_700Bold,
     Inter_900Black,
   });
+
   return (
-    <Background>
-      <StatusBar barStyle="light-content" backgroundColor="transparent" />
-      {fontsLoaded ? <Home /> : <Loading />}
-    </Background>
+    <NavigationContainer>
+      <Background>
+        <StatusBar barStyle="light-content" backgroundColor="transparent" />
+        {fontsLoaded ? <Home /> : <Loading />}
+      </Background>
+    </NavigationContainer>
   );
 }
